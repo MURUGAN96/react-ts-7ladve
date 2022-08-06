@@ -9,6 +9,10 @@ import {
 } from 'react';
 import './style.css';
 
+import Home from './Home';
+
+import { Routes, Route, Link } from 'react-router-dom';
+
 export const BirdContext = createContext({
   newBird: { bird: 'parrot' },
   setBird: () => null,
@@ -59,12 +63,13 @@ export default function App() {
   console.log(BirdProvider.newBird);
 
   const getCall = () => {
-    dispatch({ type: 'INCREMENT' })
-    console.log(`63: ` +state.count);
+    dispatch({ type: 'INCREMENT' });
+    console.log(`63: ` + state.count);
   };
 
   return (
     <div>
+      <Link to="/home">Home</Link>
       <h1>Hello !</h1>
       <h1>React Hooks</h1>
       <button onClick={() => setAnimal(animal + 1)}>Add Animal Lion</button>
@@ -72,6 +77,11 @@ export default function App() {
       <h3 id="textValue"></h3>
       <h2>{myBtn.current}</h2>
       <button onClick={getCall}>Invoke Reducer Hook</button>
+
+      <Routes>
+        <Route exact path="/" element={<App />} />
+        <Route exact path="/home" element={<Home />} />
+      </Routes>
     </div>
   );
 }
