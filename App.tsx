@@ -70,6 +70,9 @@ export default function App() {
   return (
     <div>
       <Link to="/home">Home</Link>
+      <br />
+      {/* <Link to="/">App</Link> */}
+      <hr />
       <h1>Hello !</h1>
       <h1>React Hooks</h1>
       <button onClick={() => setAnimal(animal + 1)}>Add Animal Lion</button>
@@ -79,7 +82,7 @@ export default function App() {
       <button onClick={getCall}>Invoke Reducer Hook</button>
 
       <Routes>
-        <Route exact path="/" element={<App />} />
+        {/* <Route exact path="/" element={<App />} /> */}
         <Route exact path="/home" element={<Home />} />
       </Routes>
     </div>
