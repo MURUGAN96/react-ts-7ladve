@@ -9,6 +9,8 @@ import {
 } from 'react';
 import './style.css';
 
+import { configureStore } from '@reduxjs/toolkit';
+
 import Home from './Home';
 
 import { Routes, Route, Link } from 'react-router-dom';
@@ -45,6 +47,29 @@ const teleReducer = (state = initialState, action) => {
   }
 };
 
+const firstState = {
+  name: [],
+};
+const toDo = (state = firstState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case 'push':
+      return {
+        ...state,
+        name: [...state.name, payload],
+      };
+    case 'pop':
+      return {
+        ...state,
+        name: [state.name.pop()],
+      };
+    default:
+      return state;
+  }
+};
+
+export const store = configureStore({ reducer: toDo });
+
 export default function App() {
   const [animal, setAnimal] = useState(0);
 
@@ -59,9 +84,16 @@ export default function App() {
     }, 1000);
   });
 
+  //Redux hook
+
+  store.dispatch({ type: 'push', payload: '4' });
+  store.dispatch({ type: 'push', payload: '5' });
+  store.dispatch({ type: 'push', payload: '8' });
+  store.dispatch({ type: 'pop' });
   const BirdProvider = useContext(BirdContext);
   console.log(BirdProvider.newBird);
 
+  console.log('96: ' + store.getState().name.length);
   const getCall = () => {
     dispatch({ type: 'INCREMENT' });
     console.log(`63: ` + state.count);
